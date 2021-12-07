@@ -26,7 +26,7 @@ simulate_breeding(list_of_fish, 80)
 print(f'number of fish after 80 days: {len(list_of_fish)}')
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Part Two
+# Part Two (stolen)
 fish_counts = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 list_of_fish = [int(a) for a in open("day6_input.txt", "r").readline().split(',')]
 for fish in list_of_fish:
