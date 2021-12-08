@@ -1,4 +1,4 @@
-# STOLEN!!! :(
+# STOLEN!!! https://pastebin.com/mxYQNWiX
 Signal = frozenset[str]
 SignalPattern = tuple[Signal, ...]
 FourDigitOutputValue = tuple[Signal, ...]
