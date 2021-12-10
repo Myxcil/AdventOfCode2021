@@ -24,7 +24,7 @@ def print_map(map_2d: [[int]], low_points: set[tuple[int, int]]):
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------
-def print_map(map_2d: [[int]], basin_array: [[bool]]):
+def print_map_basins(map_2d: [[int]], basin_array: [[bool]]):
     for y in range(len(map_2d)):
         for x in range(len(map_2d[y])):
             if basin_array[y][x]:
@@ -60,7 +60,7 @@ def find_lowest_points(map_2d: [[int]]) -> set[tuple[int, int]]:
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------
-def assess_risk_level(map_2d: [[int]], low_points: set[tuple[int, int]]) -> int:
+def assess_risk_level(map_2d: [[int]]) -> int:
     risk_level = 0
     for y in range(len(map_2d)):
         for x in range(len(map_2d[y])):
@@ -71,7 +71,7 @@ def assess_risk_level(map_2d: [[int]], low_points: set[tuple[int, int]]) -> int:
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------
 def find_basins(map_2d: [[int]], low_points: set[tuple[int, int]]) -> tuple[[[tuple[int, int]]], [[bool]]]:
-    basin_array: [[bool]] = [[False for x in y] for y in map_2d]
+    basin_array: [[bool]] = [[False for _ in y] for y in map_2d]
     basins: [[tuple[int, int]]] = []
     for x, y in low_points:
         basin: [tuple[int, int]] = []
@@ -109,9 +109,9 @@ with open("day9_input.txt", "r") as file:
 
 lowest_points = find_lowest_points(height_map)
 # print_map(height_map, lowest_points)
-print(f'#1 risk-level: {assess_risk_level(height_map, lowest_points)}')
+print(f'#1 risk-level: {assess_risk_level(height_map)}')
 
 basin_list, basin_flag = find_basins(height_map, lowest_points)
-# print_map(height_map, basin_flag)
+# print_map_basins(height_map, basin_flag)
 basin_list.sort(key=len, reverse=True)
 print(f'#2 total-size: {len(basin_list[0]) * len(basin_list[1]) * len(basin_list[2])}')
