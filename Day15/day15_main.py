@@ -71,6 +71,7 @@ def find_path(map2d: [[int]], start: tuple[int, int], end: tuple[int, int], scal
     width = len(map2d[0]) * scale
     height = len(map2d) * scale
 
+    count = 0
     while len(open_stack) > 0:
         open_stack.sort(key=lambda x: nodes[x].total_cost)
         node = nodes[open_stack.pop(0)]
@@ -84,6 +85,7 @@ def find_path(map2d: [[int]], start: tuple[int, int], end: tuple[int, int], scal
                 node = node.parent
             new_path.reverse()
             path_cost.reverse()
+            print(f'visited nodes: {len(nodes)}')
             return new_path, path_cost
 
         def check_neighbor(dx: int, dy: int):
@@ -116,14 +118,14 @@ def find_path(map2d: [[int]], start: tuple[int, int], end: tuple[int, int], scal
         check_neighbor(node.x, node.y + 1)
 
 
-with open("day15_input.txt", "r") as file:
+with open("day15_test_input.txt", "r") as file:
     cavern_map: [[int]] = [[int(x) for x in line.strip()] for line in file.readlines()]
 
-scale = 5
+scale = 1
 end_x = (scale * len(cavern_map[0]))-1
 end_y = (scale * len(cavern_map))-1
 
 path, cost = find_path(cavern_map, (0, 0), (end_x, end_y), scale)
 # print(cost)
 print(sum(cost))
-# print_map_and_path(cavern_map, path, scale)
+print_map_and_path(cavern_map, path, scale)
