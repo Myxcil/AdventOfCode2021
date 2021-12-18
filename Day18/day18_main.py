@@ -4,8 +4,8 @@ def reduce(snail: [str]):
         depth = 0
         index = 0
         needs_reduction = False
-        [print(f'{x} ', end='') for x in snail]
-        print()
+        # [print(x, end='') for x in snail]
+        # print()
         while index < len(snail):
             if snail[index] == '[':
                 if depth == 4:
@@ -16,12 +16,17 @@ def reduce(snail: [str]):
                     depth += 1
             elif snail[index] == ']':
                 depth -= 1
-            else:
-                if int(snail[index]) > 9:
-                    split(snail, index)
-                    needs_reduction = True
-                    break
             index += 1
+
+        if not needs_reduction:
+            index = 0
+            while index < len(snail):
+                if snail[index] not in '[]':
+                    if int(snail[index]) > 9:
+                        split(snail, index)
+                        needs_reduction = True
+                        break
+                index += 1
 
 
 def get_next_pair(snail: [str], index: int) -> tuple[int, int, int]:
@@ -32,7 +37,7 @@ def get_next_pair(snail: [str], index: int) -> tuple[int, int, int]:
 
 def explode(snail: [str], index: int):
     pair = get_next_pair(snail, index)
-    print(f'ex={pair}')
+    # print(f'ex={pair}')
     for i in range(pair[2], -1, -1):
         if snail[i] not in '[]':
             value = int(snail[i])
@@ -53,7 +58,7 @@ def explode(snail: [str], index: int):
 
 
 def split(snail: [str], index: int):
-    print(f'sp={snail[index]}')
+    # print(f'sp={snail[index]}')
     l_value = int(int(snail[index]) / 2)
     r_value = int(snail[index]) - l_value
     del snail[index]
@@ -86,11 +91,20 @@ def add_snailfish_numbers(a: [str], b: [str]) -> [str]:
 
 
 snailfish_rows: [str] = []
-with open("day18_test_input.txt", "r") as file:
+with open("day18_input.txt", "r") as file:
     for line in file.readlines():
         snailfish_rows.append([x for x in line.strip() if x != ','])
 
 
-snail_sum = snailfish_rows[0]
+snail_sum = snailfish_rows[0].copy()
 for x in range(1, len(snailfish_rows)):
     snail_sum = add_snailfish_numbers(snail_sum, snailfish_rows[x])
+reduce(snail_sum)
+print(f'mag = {calc_snail_mag(snail_sum)}')
+
+largest_mag = 0
+for a in range(len(snailfish_rows)-1):
+    for b in range(a+1, len(snailfish_rows)):
+        largest_mag = max(largest_mag, calc_snail_mag(add_snailfish_numbers(snailfish_rows[a], snailfish_rows[b])))
+        largest_mag = max(largest_mag, calc_snail_mag(add_snailfish_numbers(snailfish_rows[b], snailfish_rows[a])))
+print(f'largest mag = {largest_mag}')
