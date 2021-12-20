@@ -1,5 +1,3 @@
-import math
-
 outside_val: chr = '.'
 
 
@@ -44,7 +42,6 @@ with open("day20_input.txt", "r") as file:
     image_map = [[c for c in row.strip()] for row in file.readlines()]
 
 # print_image(image_map)
-
 
 for _ in range(50):
     image_map = enhance_image(image_map, input_algo)
