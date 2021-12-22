@@ -1,7 +1,4 @@
 # New attempt
-import copy
-
-
 class Cube:
     def __init__(self, min_x: int, max_x: int, min_y: int, max_y: int, min_z: int, max_z: int):
         self.x = [min_x, max_x]
